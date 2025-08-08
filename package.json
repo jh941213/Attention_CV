@@ -1,0 +1,42 @@
+{
+  "name": "ai-github-pages-generator",
+  "version": "1.0.0",
+  "description": "AI-powered chatbot for automated GitHub Pages code generation",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "concurrently \"npm run backend:prod\" \"npm run frontend:start\"",
+    "backend:prod": "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "frontend:start": "cd frontend && npm start",
+    "install:all": "pip install -e . && cd frontend && npm install",
+    "setup": "cp .env.example .env && npm run install:all",
+    "clean": "python clean.py",
+    "clean:dry": "python clean.py --dry-run",
+    "clean:python": "python clean.py --category python",
+    "clean:all": "python clean.py --category all",
+    "clean:dev": "python clear-dev-data.js",
+    "clear:storage": "node clear-localStorage.js",
+    "format": "cd backend && black . && isort .",
+    "lint": "cd backend && ruff check .",
+    "lint:fix": "cd backend && ruff check --fix .",
+    "test": "cd backend && pytest",
+    "test:cov": "cd backend && pytest --cov=app --cov-report=html",
+    "pre-deploy": "npm run clean && npm run lint:fix && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "ai",
+    "github-pages",
+    "chatbot",
+    "fastapi",
+    "nextjs",
+    "react",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
